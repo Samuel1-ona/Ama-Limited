@@ -1,10 +1,12 @@
 import React from 'react';
 import { Box, Typography, Grid, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Chip } from '@mui/material';
+import { motion } from 'framer-motion';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import BusinessIcon from '@mui/icons-material/Business';
 import FactoryIcon from '@mui/icons-material/Factory';
 import Section from '../Shared/Section';
+import AnimatedSection from '../Shared/AnimatedSection';
 
 const PricingTiers = () => {
   const tiers = [
@@ -55,23 +57,39 @@ const PricingTiers = () => {
 
   return (
     <Section backgroundColor="background.paper">
-      <Box>
-        <Typography variant="h2" component="h2" sx={{ mb: 6, textAlign: 'center' }}>
-          Pricing Tiers
-        </Typography>
+      <AnimatedSection>
+        <Box>
+          <Typography variant="h2" component="h2" sx={{ mb: 6, textAlign: 'center' }}>
+            Pricing Tiers
+          </Typography>
 
-        <Grid container spacing={4}>
-          {tiers.map((tier, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Card
-                sx={{
-                  height: '100%',
-                  backgroundColor: 'white',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  position: 'relative',
-                }}
-              >
+          <Grid container spacing={4}>
+            {tiers.map((tier, index) => (
+              <Grid item xs={12} md={4} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.2,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
+                  whileHover={{
+                    y: -12,
+                    transition: { duration: 0.3 },
+                  }}
+                >
+                  <Card
+                    sx={{
+                      height: '100%',
+                      backgroundColor: 'white',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                      cursor: 'pointer',
+                    }}
+                  >
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Box sx={{ textAlign: 'center', mb: 3 }}>
                     {tier.icon}
@@ -121,11 +139,13 @@ const PricingTiers = () => {
                     </Typography>
                   </Box>
                 </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+                  </Card>
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </AnimatedSection>
     </Section>
   );
 };

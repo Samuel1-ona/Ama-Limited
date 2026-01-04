@@ -12,6 +12,7 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -85,51 +86,74 @@ const Navbar = () => {
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between', py: 1 }}>
-          <Typography
-            variant="h5"
-            component={Link}
-            to="/"
-            sx={{
-              fontWeight: 700,
-              color: 'primary.main',
-              textDecoration: 'none',
-              '&:hover': {
-                opacity: 0.8,
-              },
-            }}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
-            AMA Limited
-          </Typography>
+            <Typography
+              variant="h5"
+              component={Link}
+              to="/"
+              sx={{
+                fontWeight: 700,
+                color: 'primary.main',
+                textDecoration: 'none',
+                display: 'block',
+                '&:hover': {
+                  opacity: 0.8,
+                },
+              }}
+            >
+              AMA Limited
+            </Typography>
+          </motion.div>
 
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
-            {navItems.map((item) => (
-              <Button
+            {navItems.map((item, index) => (
+              <motion.div
                 key={item.path}
-                component={Link}
-                to={item.path}
-                sx={{
-                  color: isActive(item.path) ? 'primary.main' : 'text.secondary',
-                  fontWeight: isActive(item.path) ? 600 : 400,
-                  borderBottom: isActive(item.path) ? '2px solid' : 'none',
-                  borderColor: 'primary.main',
-                  borderRadius: 0,
-                  '&:hover': {
-                    color: 'primary.main',
-                    backgroundColor: 'transparent',
-                  },
-                }}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -2 }}
               >
-                {item.label}
-              </Button>
+                <Button
+                  component={Link}
+                  to={item.path}
+                  sx={{
+                    color: isActive(item.path) ? 'primary.main' : 'text.secondary',
+                    fontWeight: isActive(item.path) ? 600 : 400,
+                    borderBottom: isActive(item.path) ? '2px solid' : 'none',
+                    borderColor: 'primary.main',
+                    borderRadius: 0,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      color: 'primary.main',
+                      backgroundColor: 'transparent',
+                    },
+                  }}
+                >
+                  {item.label}
+                </Button>
+              </motion.div>
             ))}
-            <Button
-              variant="contained"
-              component={Link}
-              to="/#contact"
-              sx={{ ml: 2 }}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Request Demo
-            </Button>
+              <Button
+                variant="contained"
+                component={Link}
+                to="/#contact"
+                sx={{ ml: 2 }}
+              >
+                Request Demo
+              </Button>
+            </motion.div>
           </Box>
 
           <IconButton

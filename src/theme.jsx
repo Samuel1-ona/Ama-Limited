@@ -93,6 +93,7 @@ const theme = createTheme({
           fontWeight: 600,
           padding: '12px 24px',
           borderRadius: '8px',
+          transition: 'all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)',
         },
         contained: {
           boxShadow: '0 2px 8px rgba(11, 31, 51, 0.15)',
@@ -113,11 +114,20 @@ const theme = createTheme({
         root: {
           borderRadius: '12px',
           boxShadow: '0 2px 8px rgba(11, 31, 51, 0.1)',
-          transition: 'all 0.3s ease',
+          transition: 'all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)',
           '&:hover': {
             boxShadow: '0 4px 16px rgba(11, 31, 51, 0.15)',
-            transform: 'translateY(-2px)',
           },
+        },
+      },
+    },
+    MuiCssBaseline: {
+      styleOverrides: {
+        '*': {
+          scrollBehavior: 'smooth',
+        },
+        body: {
+          scrollBehavior: 'smooth',
         },
       },
     },
